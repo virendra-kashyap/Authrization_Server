@@ -1,10 +1,18 @@
 server:
   port: 2222
+  forward-headers-strategy: framework
 
 spring:
-  application:
-    name: resource-server
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          client-id: localhost
+          client-secret: localhost
+          introspection-uri: http://localhost:8100/oauth2/introspect   
 
 logging:
   level:
-    org.springframework.security: TRACE
+    org:
+      springframework:
+        security: TRACE 

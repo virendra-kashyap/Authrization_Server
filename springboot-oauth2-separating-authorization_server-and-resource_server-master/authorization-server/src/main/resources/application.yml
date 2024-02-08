@@ -1,10 +1,35 @@
 server:
   port: 8100
+  forward-headers-strategy: framework
 
 spring:
-  application:
-    name: auth-server
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          second:
+            token:
+              access-token-format: reference
+              access-token-time-to-live: 3600s
+            registration:
+              client-id: second
+              client-name: second
+              client-secret: "{noop}second"
+              authorization-grant-types: client_credentials
+              client-authentication-methods: client_secret_post,client_secret_basic
+          localhost:
+            token:
+              access-token-format: reference
+              access-token-time-to-live: 240s 
+            registration:
+              client-id: localhost
+              client-name: localhost
+              client-secret: "{noop}localhost"
+              authorization-grant-types: client_credentials
+              client-authentication-methods: client_secret_post,client_secret_basic
 
 logging:
   level:
-    org.springframework.security: TRACE
+    org:
+      springframework:
+        security: trace
